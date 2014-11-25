@@ -1,32 +1,22 @@
-import register
-import requests
+import api
 import json
 
-# Obtain my token
-token = register.token()
+def runstage2(token):
+	# get data
+	jsonData = api.getData('haystack', {'token':token})
 
-# Create the requesting JSON file
-data = {'token':token}
+	# extract data
+	haystack = jsonData['haystack']
+	needle = jsonData['needle']
 
-# get the dictionary
-r = requests.post('http://challenge.code2040.org/api/haystack', data=json.dumps(data))
-jsonData = r.json()
-haystack = jsonData['result']['haystack']
-needle = jsonData['result']['needle']
+	# get index, according to instructions it is always there, but lets
+	# just add some basic error handling
+	try:
+		index = haystack.index(needle)
+	except:
+		print "The needle is not in the haystack"
 
-# get index, according to instructions it is always there, but lets
-# just add some basic error handling
-try:
-	index = haystack.index(needle)
-except:
-	print "The needle is not in the haystack"
-
-# Create the verifying JSON file
-data = {'token':token, 'needle':index}
-
-# verify the index
-r = requests.post('http://challenge.code2040.org/api/validateneedle', data=json.dumps(data))
-jsonData = r.json()
-result = jsonData['result']
+	# validate result
+	return api.verifyResult('validateneedle', {'token':token, 'needle':index})
 
 

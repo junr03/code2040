@@ -1,25 +1,13 @@
-import register
-import requests
+import api
 import json
 
-# Obtain my token
-token = register.token()
+def runstage1(token):
+	string = api.getData('getstring', {'token':token})
 
-# Create the requesting JSON file
-data = {'token':token}
+	# reverse the string
+	reversedString = string[::-1]
 
-# get the string
-r = requests.post('http://challenge.code2040.org/api/getstring', data=json.dumps(data))
-jsonData = r.json()
-string = jsonData['result']
+	# validate result
+	return api.verifyResult('validatestring', {'token':token, 'string':reversedString})
 
-# reverse the string
-reversedString = string[::-1]
 
-# Create the verifying JSON file
-data = {'token':token, 'string':reversedString}
-
-# verify the reversed string
-r = requests.post('http://challenge.code2040.org/api/validatestring', data=json.dumps(data))
-jsonData = r.json()
-result = jsonData['result']

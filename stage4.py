@@ -1,32 +1,22 @@
-import register
-import requests
+import api
 import json
 import dateutil.parser
 import datetime
 
-# Obtain my token
-token = register.token()
+def runstage4(token):
+	# get data
+	jsonData = api.getData('time', {'token':token})
 
-# Create the requesting JSON file
-data = {'token':token}
+	# extract data
+	current = jsonData['datestamp']
+	interval = jsonData['interval']
 
-# get the dictionary
-r = requests.post('http://challenge.code2040.org/api/time', data=json.dumps(data))
-jsonData = r.json()
-current = jsonData['result']['datestamp']
-interval = jsonData['result']['interval']
+	# get the datetime object
+	current = dateutil.parser.parse(current)
+	# this signifies 0 hours and interval seconds in the future
+	later = current + datetime.timedelta(0,interval)
+	# format the string
+	formatedLater = later.isoformat()
 
-# get the datetime object
-current = dateutil.parser.parse(current)
-# this signifies 0 hours and interval seconds in the future
-later = current + datetime.timedelta(0,interval)
-# format the string
-formatedLater = later.isoformat()
-
-# Create the verifying JSON file
-data = {'token':token, 'datestamp':formatedLater}
-
-# verify the index
-r = requests.post('http://challenge.code2040.org/api/validatetime', data=json.dumps(data))
-jsonData = r.json()
-result = jsonData['result']
+	# validate result
+	return api.verifyResult('validatetime', {'token':token, 'datestamp':formatedLater})
