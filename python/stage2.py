@@ -3,7 +3,7 @@ import json
 
 def runstage2(token):
 	# get data
-	jsonData = api.getData('haystack', {'token':token})
+	jsonData = api.communicate('haystack', {'token':token})
 
 	# extract data
 	haystack = jsonData['haystack']
@@ -17,6 +17,6 @@ def runstage2(token):
 		print "The needle is not in the haystack"
 
 	# validate result
-	return api.verifyResult('validateneedle', {'token':token, 'needle':index})
+	return api.communicate('validateneedle', {'token':token, 'needle':index})
 
 

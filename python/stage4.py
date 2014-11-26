@@ -5,7 +5,7 @@ import datetime
 
 def runstage4(token):
 	# get data
-	jsonData = api.getData('time', {'token':token})
+	jsonData = api.communicate('time', {'token':token})
 
 	# extract data
 	current = jsonData['datestamp']
@@ -19,4 +19,4 @@ def runstage4(token):
 	formatedLater = later.isoformat()
 
 	# validate result
-	return api.verifyResult('validatetime', {'token':token, 'datestamp':formatedLater})
+	return api.communicate('validatetime', {'token':token, 'datestamp':formatedLater})
