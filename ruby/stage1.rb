@@ -8,6 +8,6 @@ module Stage1
 		# we san do it in place. That is s is now the reversed
 		# string
 		string.reverse!
-		puts API.communicate('validatestring', {'token' => token, 'string' => string})
+		API.communicate('validatestring', {'token' => token, 'string' => string})
 	end
 end

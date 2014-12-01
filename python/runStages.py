@@ -5,8 +5,13 @@ import stage3
 import stage4
 
 def main():
-	token = api.token('jnino1@jhu.edu', 'https://github.com/junr03/code2040')
+	print "Enter the email associated with your code2040 account:",
+	email = raw_input()
+	print "Enter the github repo associated with your code2040 account:",
+	github = raw_input()
+	token = api.token(email, github)
 
+	print "RESULTS"
 	result1 = stage1.runstage1(token)
 	print result1
 	result2 = stage2.runstage2(token)

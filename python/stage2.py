@@ -14,6 +14,7 @@ def runstage2(token):
 	try:
 		index = haystack.index(needle)
 	except:
+		index = None
 		print "The needle is not in the haystack"
 
 	# validate result
