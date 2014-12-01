@@ -31,9 +31,15 @@ Stage 4 was interesting as I had never dealt with ISO8601 formatting. It seems t
 ## Running the Code
 
 1. To run the ruby version, from the root in the project folder:
+
+	```
 	cd ruby
 	ruby runStages.rb
+	```
 
 2. To run the python version, from the root in the project folder:
+
+	```
 	cd python
-	python runStages
+	python runStages.py
+	```
